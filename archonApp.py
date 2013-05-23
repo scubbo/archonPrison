@@ -6,6 +6,7 @@ from PIL import Image, ImageDraw
 from itertools import repeat
 
 def visualizePrison(prison):
+	'''Given a prison, output a PIL image of the current state'''
 	size = prison.size
 	im = Image.new('RGB', map(lambda x: x*10, size))
 	draw = ImageDraw.Draw(im)
@@ -15,28 +16,24 @@ def visualizePrison(prison):
 	return im
 
 def colorFunction(cell):
+	'''Given a cell, outputs an appropriate colour based on the contents'''
 	if cell.content==None:
 		return '#888888'
 	else:
 		return cell.content.attributes['colour']
 
 
-#p = main.Prison((5, 5))
-#prisoner1 = main.Prisoner({'colour':'#ff0000'}, ExampleStrategies.alwaysCooperate)
-#prisoner2 = main.Prisoner({'colour':'#00ff00'}, ExampleStrategies.alwaysCooperate)
-#prisoner3 = main.Prisoner({'colour':'#0000ff'}, ExampleStrategies.fiftyFifty)
-
-#p.cells[(0, 0)].content = prisoner1
-#p.cells[(2, 3)].content = prisoner2
-#p.cells[(4, 1)].content = prisoner3
-
 def randomColour():
+	'''Generate a random PIL colour string ("#xxxxxx")'''
 	return '#' + str(hex(random.randint(0, 16777215)))[2:].rjust(6, '0')
 
 def createRandomPrisoner():
+	'''Create and return a randomised prisoner, with a "colour" attribute and a 
+	strategy chosen from ExampleStrategies.randomStrategy'''
 	return main.Prisoner({'colour':randomColour()}, ExampleStrategies.randomStrategy())
 
 def generate(size=(30, 30), prisonerDensity=0.3, frames = 100):
+	'''Creates a prison with given parameters, runs a sequence of stages, and returns appropriate images'''
 	images = []
 	p = main.Prison(size)
 	for cell in p.cells:
@@ -53,8 +50,9 @@ def generate(size=(30, 30), prisonerDensity=0.3, frames = 100):
 
 	return images
 
-def makeGif(images):
+def makeGif(filename, images):
+	'''Given a filename and a sequence of images, output a gif'''
 	import sys
 	sys.path.append('src')
 	import images2gif
-	images2gif.writeGif(images)
+	images2gif.writeGif(filename, images)
