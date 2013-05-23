@@ -1,3 +1,4 @@
+#!/usr/bin/python
 import main
 import ExampleStrategies
 import random
