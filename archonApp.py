@@ -56,3 +56,17 @@ def makeGif(filename, images):
 	sys.path.append('src')
 	import images2gif
 	images2gif.writeGif(filename, images)
+
+if __name__ == '__main__':
+	import os, os.path
+	edgesize = int(raw_input('How wide?'))
+	density = float(raw_input('How dense? (decimal, 0-1)'))
+	frames = int(raw_input('How many frames?'))
+	images = generate((edgesize, edgesize), density, frames)
+	try:
+		os.mkdir('images')
+	except OSError:
+		#It exists. Awesome
+		pass
+	filename = 'images/' + str(len(os.listdir('images'))) + '.gif'
+	makeGif(filename, images)
