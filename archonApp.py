@@ -60,9 +60,9 @@ def makeGif(filename, images):
 
 if __name__ == '__main__':
 	import os, os.path
-	edgesize = int(raw_input('How wide?'))
-	density = float(raw_input('How dense? (decimal, 0-1)'))
-	frames = int(raw_input('How many frames?'))
+	edgesize = int(raw_input('How wide? '))
+	density = float(raw_input('How dense? (decimal, 0-1) '))
+	frames = int(raw_input('How many frames? '))
 	images = generate((edgesize, edgesize), density, frames)
 	try:
 		os.mkdir('images')
